@@ -26,36 +26,50 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Ngăn cuộn toàn bộ trang web */
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1.5rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
-            min-height: 100vh;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
+            width: 100%;
             max-width: 900px;
-            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
+        }
+
+        /* Khối cố định phía trên */
+        .fixed-header {
+            flex-shrink: 0;
         }
 
         header {
             text-align: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.85rem;
         }
 
         header h1 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
         }
 
         header .author {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
@@ -65,8 +79,8 @@
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 0.85rem 1rem;
-            margin-bottom: 1.25rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.85rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -75,23 +89,23 @@
         }
 
         .stat-value {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--accent);
         }
 
         .stat-label {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-top: 0.15rem;
+            margin-top: 0.1rem;
         }
 
         .controls {
             display: flex;
             gap: 0.75rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.85rem;
             flex-wrap: wrap;
         }
 
@@ -108,12 +122,12 @@
 
         .search-box input {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.75rem 1rem;
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 10px;
             color: var(--text-main);
-            font-size: 16px; /* Prevent auto-zoom on iOS */
+            font-size: 16px; /* Chống auto-zoom trên iOS */
             outline: none;
             transition: border-color 0.2s;
         }
@@ -139,12 +153,12 @@
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 0.8rem 1rem;
+            padding: 0.75rem 1rem;
             border-radius: 10px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             text-align: center;
             white-space: nowrap;
         }
@@ -153,6 +167,28 @@
             background-color: var(--primary);
             border-color: var(--primary);
             transform: scale(0.98);
+        }
+
+        /* Khối cuộn riêng cho danh sách 16 quyển */
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+            padding-right: 4px; /* Tránh đè thanh cuộn */
+        }
+
+        /* Tùy chỉnh thanh cuộn tinh tế */
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--card-border);
+            border-radius: 3px;
         }
 
         .volume-card {
@@ -166,7 +202,7 @@
         }
 
         .volume-header {
-            padding: 1rem 1.25rem;
+            padding: 0.9rem 1.15rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -190,27 +226,27 @@
 
         .volume-title {
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .volume-badge {
             background-color: var(--badge-bg);
             color: var(--badge-text);
-            padding: 0.2rem 0.6rem;
+            padding: 0.2rem 0.55rem;
             border-radius: 20px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
         .volume-range {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-right: 1.5rem;
+            font-size: 0.85rem;
+            margin-right: 1.25rem;
         }
 
         .toggle-icon {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             transition: transform 0.3s ease;
             fill: var(--text-muted);
             flex-shrink: 0;
@@ -235,9 +271,9 @@
 
         .chapter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             gap: 0.5rem;
-            padding: 1rem;
+            padding: 0.85rem;
             background-color: rgba(0, 0, 0, 0.15);
         }
 
@@ -249,23 +285,23 @@
             }
             
             .volume-header {
-                padding: 0.9rem 1rem;
+                padding: 0.85rem 0.9rem;
             }
 
             .volume-range {
-                font-size: 0.82rem;
+                font-size: 0.8rem;
             }
         }
 
         .chapter-item {
             background-color: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.55rem 0.7rem;
+            padding: 0.5rem 0.65rem;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
         .chapter-item .local {
@@ -275,40 +311,44 @@
         .chapter-item .global {
             color: var(--accent);
             font-weight: 600;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>Nhất Niệm Vĩnh Hằng</h1>
-        <div class="author">Tác giả: Nhĩ Căn</div>
-    </header>
+    <!-- Cố định phần tiêu đề, thống kê và ô tìm kiếm ở trên -->
+    <div class="fixed-header">
+        <header>
+            <h1>Nhất Niệm Vĩnh Hằng</h1>
+            <div class="author">Tác giả: Nhĩ Căn</div>
+        </header>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-value">16</div>
-            <div class="stat-label">Tổng Quyển</div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Tổng Quyển</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1,314</div>
+                <div class="stat-label">Tổng Chương Gốc</div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value">1,314</div>
-            <div class="stat-label">Tổng Chương Gốc</div>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Tìm chương (vd: 198, Quyển 2)..." inputmode="numeric">
+            </div>
+            <div class="btn-group">
+                <button class="btn" onclick="toggleAll(true)">Mở Tất Cả</button>
+                <button class="btn" onclick="toggleAll(false)">Thu Gọn</button>
+            </div>
         </div>
     </div>
 
-    <div class="controls">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Tìm chương (vd: 198, Quyển 2)..." inputmode="numeric">
-        </div>
-        <div class="btn-group">
-            <button class="btn" onclick="toggleAll(true)">Mở Tất Cả</button>
-            <button class="btn" onclick="toggleAll(false)">Thu Gọn</button>
-        </div>
-    </div>
-
-    <div id="volumeContainer"></div>
+    <!-- Chỉ khu vực này mới cuộn dọc khi vuốt/scroll -->
+    <div class="scrollable-content" id="volumeContainer"></div>
 </div>
 
 <script>
