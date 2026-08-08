@@ -1,475 +1,949 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Nhất Niệm Vĩnh Hằng - Nhĩ Căn</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --accent: #38bdf8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --badge-bg: #312e81;
-            --badge-text: #a5b4fc;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nhất Niệm Vĩnh Hằng · A Will Eternal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Be+Vietnam+Pro:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --stone:#14120F;
+  --stone-2:#1D1A16;
+  --stone-3:#272320;
+  --edge:#3A342D;
+  --paper:#EDE6D6;
+  --paper-dim:#A79E8D;
+  --paper-faint:#6E675C;
+  --cinnabar:#C8402E;
+  --cinnabar-soft:#E4614C;
+  --jade:#6E9B7A;
+  --gold:#C9A227;
+  --r:10px;
+  --pad:clamp(1rem,3vw,1.75rem);
+  --nav-h:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--stone);
+  color:var(--paper);
+  line-height:1.6;
+  font-size:15px;
+  min-height:100dvh;
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));
+}
+@media(min-width:820px){body{padding-bottom:0}}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+h1,h2,h3{font-family:Literata,Georgia,serif;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--cinnabar-soft)}
+:focus-visible{outline:2px solid var(--cinnabar-soft);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-        html, body {
-            height: 100%;
-            overflow: hidden; /* Ngăn cuộn toàn bộ trang web */
-        }
+/* ---------- shell ---------- */
+.wrap{width:100%;max-width:940px;margin:0 auto;padding:0 var(--pad)}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-        }
+.topbar{
+  border-bottom:1px solid var(--edge);
+  background:linear-gradient(180deg,var(--stone-2),var(--stone));
+  position:sticky;top:0;z-index:30;
+  padding-top:env(safe-area-inset-top);
+}
+.brand{display:flex;align-items:center;gap:.85rem;padding:.9rem 0}
+.seal{
+  width:38px;height:38px;flex:0 0 38px;border-radius:5px;
+  background:var(--cinnabar);color:#fff;
+  display:grid;place-items:center;
+  font-family:Literata,serif;font-size:20px;font-weight:700;
+  box-shadow:0 0 0 1px rgba(255,255,255,.14) inset;
+}
+.brand-txt h1{font-size:1.06rem;letter-spacing:.01em}
+.brand-txt p{font-size:.74rem;color:var(--paper-faint);letter-spacing:.09em;text-transform:uppercase;margin-top:1px}
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
-        }
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:rgba(20,18,15,.96);
+  backdrop-filter:blur(12px);
+  border-top:1px solid var(--edge);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav button{
+  background:none;border:0;cursor:pointer;
+  padding:.6rem .3rem .55rem;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--paper-faint);
+  font-size:.72rem;font-weight:500;
+  border-top:2px solid transparent;margin-top:-1px;
+  transition:color .18s;
+}
+.nav button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.6}
+.nav button[aria-selected="true"]{color:var(--cinnabar-soft);border-top-color:var(--cinnabar)}
 
-        /* Khối cố định phía trên */
-        .fixed-header {
-            flex-shrink: 0;
-        }
+@media(min-width:820px){
+  .nav{
+    position:static;display:flex;gap:.35rem;
+    background:none;border-top:0;backdrop-filter:none;
+    width:100%;max-width:940px;margin:0 auto;padding:0 var(--pad);
+  }
+  .nav button{
+    flex-direction:row;gap:.5rem;
+    padding:.7rem .95rem;border-top:0;margin-top:0;
+    border-bottom:2px solid transparent;
+    font-size:.88rem;
+  }
+  .nav button[aria-selected="true"]{border-bottom-color:var(--cinnabar)}
+  .nav button:hover{color:var(--paper-dim)}
+  .nav button[aria-selected="true"]:hover{color:var(--cinnabar-soft)}
+}
 
-        header {
-            text-align: center;
-            margin-bottom: 0.85rem;
-        }
+main{padding:1.5rem 0 3rem}
+.page[hidden]{display:none}
+.page-head{margin-bottom:1.25rem}
+.page-head h2{font-size:clamp(1.3rem,4vw,1.7rem)}
+.page-head p{color:var(--paper-dim);font-size:.92rem;margin-top:.3rem;max-width:56ch}
 
-        header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.15rem;
-        }
+.panel{background:var(--stone-2);border:1px solid var(--edge);border-radius:var(--r);padding:1.1rem}
+.panel + .panel{margin-top:1rem}
+.eyebrow{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--paper-faint);font-weight:600}
 
-        header .author {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
+/* ---------- inputs ---------- */
+input[type=text]{
+  width:100%;padding:.7rem .8rem;
+  background:var(--stone-3);border:1px solid var(--edge);
+  border-radius:8px;font-size:16px;
+  transition:border-color .18s;
+}
+input:focus{border-color:var(--cinnabar);outline:none}
+input::placeholder{color:var(--paper-faint)}
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.85rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
+.examples{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.7rem}
+.examples span{font-size:.75rem;color:var(--paper-faint)}
+.ex{
+  cursor:pointer;border:1px solid var(--edge);background:var(--stone-3);
+  color:var(--paper-dim);border-radius:6px;padding:.24rem .55rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.76rem;transition:all .15s;
+}
+.ex:hover{border-color:var(--cinnabar);color:var(--paper)}
 
-        .stat-item {
-            text-align: center;
-        }
+/* ---------- volumes ---------- */
+.vol{border:1px solid var(--edge);border-radius:var(--r);margin-top:.6rem;overflow:hidden;background:var(--stone-2)}
+.vol-head{
+  width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:.85rem 1rem;display:flex;align-items:center;gap:.7rem;
+}
+.vol-head:hover{background:var(--stone-3)}
+.vol-n{font-family:Literata,serif;font-weight:600;font-size:.98rem}
+.tag{
+  font-size:.7rem;padding:.15rem .5rem;border-radius:20px;
+  background:var(--stone-3);color:var(--paper-dim);border:1px solid var(--edge);
+  white-space:nowrap;
+}
+.vol-range{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--paper-dim);white-space:nowrap}
+.chev{width:16px;height:16px;stroke:var(--paper-faint);fill:none;stroke-width:2;transition:transform .25s;flex:0 0 16px}
+.vol.open .chev{transform:rotate(180deg)}
+.vol-body{display:none;border-top:1px solid var(--edge);background:rgba(0,0,0,.22);padding:.75rem}
+.vol.open .vol-body{display:block}
+.chgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:.4rem}
+.ch{
+  display:flex;justify-content:space-between;align-items:center;gap:.4rem;
+  padding:.42rem .55rem;border-radius:6px;
+  background:var(--stone-2);border:1px solid var(--edge);
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;
+}
+.ch b{color:var(--cinnabar-soft);font-weight:500}
+.ch.hit{border-color:var(--cinnabar);background:rgba(200,64,46,.13)}
 
-        .stat-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
+/* ---------- quick find ---------- */
+.interp{padding:.75rem 0;border-bottom:1px solid var(--edge)}
+.interp:last-child{border-bottom:0;padding-bottom:0}
+.interp:first-child{padding-top:0}
+.ilabel{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-faint);font-weight:600;margin-bottom:.35rem}
+.ival{font-size:.95rem}
+.ival strong{font-family:'IBM Plex Mono',monospace;color:var(--cinnabar-soft);font-weight:500}
+.ival.none{color:var(--paper-faint);font-size:.88rem}
+.pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.15rem}
+.pill{
+  cursor:pointer;border:1px solid var(--edge);background:var(--stone-3);
+  color:var(--paper-dim);border-radius:6px;padding:.28rem .5rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.76rem;
+  transition:all .15s;white-space:nowrap;
+}
+.pill:hover{border-color:var(--cinnabar);color:var(--paper)}
+.pill b{color:var(--cinnabar-soft);font-weight:500}
 
-        .stat-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.1rem;
-        }
+/* ---------- glossary ---------- */
+.searchbar{position:relative}
+.searchbar input{padding-left:2.3rem}
+.searchbar svg{
+  position:absolute;left:.75rem;top:50%;transform:translateY(-50%);
+  width:17px;height:17px;stroke:var(--paper-faint);fill:none;stroke-width:1.8;pointer-events:none;
+}
+.chips{display:flex;gap:.4rem;overflow-x:auto;padding:.85rem 0 .3rem;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;cursor:pointer;
+  padding:.34rem .72rem;border-radius:20px;
+  background:var(--stone-2);border:1px solid var(--edge);
+  color:var(--paper-dim);font-size:.78rem;font-weight:500;
+  transition:all .18s;
+}
+.chip:hover{border-color:var(--paper-faint)}
+.chip[aria-pressed="true"]{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
 
-        .controls {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 0.85rem;
-            flex-wrap: wrap;
-        }
+.count{font-size:.78rem;color:var(--paper-faint);margin:.85rem 0 .5rem}
+.count b{color:var(--paper-dim);font-weight:600}
 
-        .search-box {
-            flex: 1 1 100%;
-            position: relative;
-        }
+.entries{display:grid;gap:.4rem}
+.entry{
+  background:var(--stone-2);border:1px solid var(--edge);
+  border-left:3px solid var(--edge);
+  border-radius:8px;padding:.7rem .9rem;
+}
+.entry.ok{border-left-color:var(--jade)}
+.entry.star{border-left-color:var(--gold)}
+.entry-top{display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
+.en{font-family:Literata,serif;font-weight:600;font-size:1rem;color:var(--paper)}
+.vi{color:var(--paper-dim);font-size:.9rem}
+.vi::before{content:"·";margin-right:.45rem;color:var(--paper-faint)}
+.entry-meta{display:flex;gap:.4rem;align-items:center;margin-top:.4rem;flex-wrap:wrap}
+.mini{font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--paper-faint);font-weight:600}
+.mark{font-size:.72rem;font-weight:600}
+.mark.ok{color:var(--jade)}
+.mark.approx{color:var(--gold)}
+.note{font-size:.82rem;color:var(--paper-faint);margin-top:.4rem;font-style:italic}
+mark{background:rgba(200,64,46,.28);color:var(--paper);border-radius:2px;padding:0 1px}
 
-        @media (min-width: 640px) {
-            .search-box {
-                flex: 1;
-            }
-        }
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--paper-faint)}
+.empty-state p{margin-bottom:.6rem}
+.linkbtn{background:none;border:0;color:var(--cinnabar-soft);cursor:pointer;text-decoration:underline;font-size:.9rem}
 
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 16px; /* Chống auto-zoom trên iOS */
-            outline: none;
-            transition: border-color 0.2s;
-        }
+details.rules{border:1px solid var(--edge);border-radius:var(--r);background:var(--stone-2);margin-bottom:1rem}
+details.rules summary{cursor:pointer;padding:.85rem 1rem;font-weight:600;font-family:Literata,serif;list-style:none;display:flex;align-items:center;gap:.5rem}
+details.rules summary::-webkit-details-marker{display:none}
+details.rules summary::before{content:"▸";color:var(--cinnabar);transition:transform .2s;display:inline-block}
+details.rules[open] summary::before{transform:rotate(90deg)}
+.rules-body{padding:0 1rem 1rem;display:grid;gap:.85rem}
+.rule{border-left:2px solid var(--edge);padding-left:.85rem}
+.rule h4{font-size:.88rem;font-weight:600;font-family:'Be Vietnam Pro',sans-serif}
+.rule p{font-size:.85rem;color:var(--paper-dim);margin-top:.15rem}
+.rule code{font-family:'IBM Plex Mono',monospace;font-size:.8rem;background:var(--stone-3);padding:.1rem .35rem;border-radius:4px;color:var(--cinnabar-soft)}
 
-        .search-box input:focus {
-            border-color: var(--primary);
-        }
+/* ---------- roadmap ---------- */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.25rem}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--stone-2);border:1px solid var(--edge);border-radius:var(--r);padding:.85rem}
+.stat .v{font-family:'IBM Plex Mono',monospace;font-size:1.35rem;color:var(--cinnabar-soft)}
+.stat .l{font-size:.7rem;color:var(--paper-faint);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
 
-        .btn-group {
-            display: flex;
-            gap: 0.5rem;
-            width: 100%;
-        }
+.phases{position:relative;padding-left:1.6rem;margin-top:.5rem}
+.phases::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--edge),var(--cinnabar))}
+.phase{position:relative;padding-bottom:1.3rem}
+.phase::before{
+  content:"";position:absolute;left:-1.6rem;top:6px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--stone);border:2px solid var(--cinnabar);
+}
+.phase h4{font-family:Literata,serif;font-size:1rem;font-weight:600}
+.phase .when{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--paper-faint);margin-bottom:.3rem}
+.phase p{font-size:.88rem;color:var(--paper-dim)}
+.phase ul{margin:.45rem 0 0 1.1rem;font-size:.85rem;color:var(--paper-dim)}
+.phase li{margin-bottom:.18rem}
 
-        @media (min-width: 640px) {
-            .btn-group {
-                width: auto;
-            }
-        }
+.tbl{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:.6rem}
+.tbl th,.tbl td{padding:.6rem .5rem;text-align:left;border-bottom:1px solid var(--edge);vertical-align:top}
+.tbl th{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--paper-faint);font-weight:600}
+.tbl td:first-child{white-space:nowrap;font-weight:500;color:var(--paper)}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
-        .btn {
-            flex: 1;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.85rem;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .btn:active {
-            background-color: var(--primary);
-            border-color: var(--primary);
-            transform: scale(0.98);
-        }
-
-        /* Khối cuộn riêng cho danh sách 16 quyển */
-        .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
-            padding-right: 4px; /* Tránh đè thanh cuộn */
-        }
-
-        /* Tùy chỉnh thanh cuộn tinh tế */
-        .scrollable-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: var(--card-border);
-            border-radius: 3px;
-        }
-
-        .volume-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            margin-bottom: 0.85rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.2s;
-        }
-
-        .volume-header {
-            padding: 0.9rem 1.15rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            background-color: rgba(255, 255, 255, 0.02);
-            transition: background-color 0.2s;
-            position: relative;
-        }
-
-        .volume-header:active {
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .volume-title-group {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-        }
-
-        .volume-title {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .volume-badge {
-            background-color: var(--badge-bg);
-            color: var(--badge-text);
-            padding: 0.2rem 0.55rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .volume-range {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-right: 1.25rem;
-        }
-
-        .toggle-icon {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s ease;
-            fill: var(--text-muted);
-            flex-shrink: 0;
-        }
-
-        .volume-card.open .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        .volume-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
-            border-top: 1px solid transparent;
-        }
-
-        .volume-card.open .volume-content {
-            max-height: 3000px;
-            transition: max-height 0.3s ease-in-out;
-            border-top-color: var(--card-border);
-        }
-
-        .chapter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 0.5rem;
-            padding: 0.85rem;
-            background-color: rgba(0, 0, 0, 0.15);
-        }
-
-        @media (max-width: 480px) {
-            .chapter-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
-                padding: 0.75rem;
-            }
-            
-            .volume-header {
-                padding: 0.85rem 0.9rem;
-            }
-
-            .volume-range {
-                font-size: 0.8rem;
-            }
-        }
-
-        .chapter-item {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.5rem 0.65rem;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.82rem;
-        }
-
-        .chapter-item .local {
-            color: var(--text-main);
-        }
-
-        .chapter-item .global {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-    </style>
+.callout{border-left:3px solid var(--cinnabar);background:rgba(200,64,46,.08);padding:.8rem 1rem;border-radius:0 8px 8px 0;font-size:.88rem;margin-top:1rem}
+.callout b{color:var(--cinnabar-soft)}
+.h3row{font-family:Literata,serif;font-size:1.05rem;font-weight:600;margin:1.5rem 0 .3rem}
+.sub{font-size:.85rem;color:var(--paper-faint)}
+</style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Cố định phần tiêu đề, thống kê và ô tìm kiếm ở trên -->
-    <div class="fixed-header">
-        <header>
-            <h1>Nhất Niệm Vĩnh Hằng</h1>
-            <div class="author">Tác giả: Nhĩ Căn</div>
-        </header>
-
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-value">16</div>
-                <div class="stat-label">Tổng Quyển</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">1,314</div>
-                <div class="stat-label">Tổng Chương Gốc</div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Tìm chương (vd: 198, Quyển 2)..." inputmode="numeric">
-            </div>
-            <div class="btn-group">
-                <button class="btn" onclick="toggleAll(true)">Mở Tất Cả</button>
-                <button class="btn" onclick="toggleAll(false)">Thu Gọn</button>
-            </div>
-        </div>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <div class="seal" aria-hidden="true">永</div>
+      <div class="brand-txt">
+        <h1>Nhất Niệm Vĩnh Hằng</h1>
+        <p>A Will Eternal · Nhĩ Căn</p>
+      </div>
     </div>
-
-    <!-- Chỉ khu vực này mới cuộn dọc khi vuốt/scroll -->
-    <div class="scrollable-content" id="volumeContainer"></div>
+  </div>
+  <nav class="nav" role="tablist" aria-label="Khu vực">
+    <button role="tab" aria-selected="true" data-page="map">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10" stroke-linecap="round"/></svg>
+      Chương
+    </button>
+    <button role="tab" aria-selected="false" data-page="glo">
+      <svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 015.5 4H19v16H5.5A1.5 1.5 0 014 18.5z"/><path d="M8 8h7M8 12h7"stroke-linecap="round"/></svg>
+      Từ điển
+    </button>
+    <button role="tab" aria-selected="false" data-page="road">
+      <svg viewBox="0 0 24 24"><path d="M6 20V9M12 20V4M18 20v-7" stroke-linecap="round"/></svg>
+      Lộ trình
+    </button>
+  </nav>
 </div>
 
+<main class="wrap">
+
+<!-- ══════════ PAGE 1 · MAPPING ══════════ -->
+<section class="page" id="page-map" role="tabpanel">
+  <div class="page-head">
+    <h2>Quy đổi số chương</h2>
+    <p>Bản tiếng Việt chia 16 quyển, đánh số lại từ đầu mỗi quyển. Bản tiếng Anh đánh số liền mạch 1–1314. Nhập một bên, bên kia tự hiện.</p>
+  </div>
+
+  <div class="panel">
+    <div class="searchbar">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
+      <input type="text" id="quickIn" placeholder="Nhập số chương…" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="examples">
+      <span>Thử:</span>
+      <button class="ex" data-q="700">700</button>
+      <button class="ex" data-q="9.22">9.22</button>
+      <button class="ex" data-q="quyển 9">quyển 9</button>
+    </div>
+    <div id="quickOut"></div>
+  </div>
+
+  <div class="h3row">Danh sách chương</div>
+  <div class="sub">Chạm vào một quyển để mở.</div>
+  <div id="volList"></div>
+</section>
+
+<!-- ══════════ PAGE 2 · GLOSSARY ══════════ -->
+<section class="page" id="page-glo" role="tabpanel" hidden>
+  <div class="page-head">
+    <h2>Từ điển thuật ngữ</h2>
+    <p>Tra được cả hai chiều, không cần dấu. Gõ “kim dan”, “nascent”, hay “cuoi khinh” đều ra kết quả.</p>
+  </div>
+
+  <details class="rules">
+    <summary>8 quy tắc dịch — nắm được thì đoán ra từ chưa gặp</summary>
+    <div class="rules-body" id="rulesBody"></div>
+  </details>
+
+  <div class="searchbar">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
+    <input type="text" id="gloSearch" placeholder="Tra từ tiếng Việt hoặc tiếng Anh…" autocomplete="off" spellcheck="false">
+  </div>
+
+  <div class="chips" id="chips"></div>
+  <div class="count" id="gloCount"></div>
+  <div class="entries" id="gloList"></div>
+</section>
+
+<!-- ══════════ PAGE 3 · ROADMAP ══════════ -->
+<section class="page" id="page-road" role="tabpanel" hidden>
+  <div class="page-head">
+    <h2>Lộ trình học</h2>
+    <p>Đọc truyện để xây vốn từ, có kiểm tra định kỳ. Thiết kế cho 60 phút mỗi ngày.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">60′</div><div class="l">Mỗi ngày</div></div>
+    <div class="stat"><div class="v">8</div><div class="l">Thẻ Anki / ngày</div></div>
+    <div class="stat"><div class="v">5</div><div class="l">Từ tra / màn hình</div></div>
+    <div class="stat"><div class="v">20–24</div><div class="l">Tháng dự kiến</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="eyebrow">Nguyên tắc nền</div>
+    <div class="h3row" style="margin-top:.5rem">Hai dòng từ vựng</div>
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th></th><th>Dòng A — từ thể loại</th><th>Dòng B — từ phổ thông</th></tr></thead>
+        <tbody>
+          <tr><td>Ví dụ</td><td>cultivation, spirit stone, Nascent Soul</td><td>smirk, reluctant, ominous, wince</td></tr>
+          <tr><td>Cách học</td><td>Tự thuộc qua lặp lại. Không cho vào Anki.</td><td>Đưa vào Anki. Đây là vốn từ thật.</td></tr>
+          <tr><td>Giá trị</td><td>Thảo luận với cộng đồng</td><td>Dùng được cả trong công việc</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Không phân biệt hai dòng này thì sau 6 tháng bạn nói rất giỏi về <b>Nascent Soul</b> nhưng vẫn không viết nổi một email công việc.</div>
+  </div>
+
+  <div class="h3row">Tuần chuẩn</div>
+  <div class="panel">
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Ngày</th><th>Phân bổ 60 phút</th></tr></thead>
+        <tbody>
+          <tr><td>T2 · T4 · T6</td><td>5′ Anki → 25′ một chương đọc kỹ → 20′ hai chương lướt → 10′ test nóng</td></tr>
+          <tr><td>T3 · T5 · T7</td><td>5′ Anki → 55′ đọc lướt thuần. Không tra từ, không test.</td></tr>
+          <tr><td>Chủ Nhật</td><td>5′ Anki → 25′ đọc → 30′ test nguội và viết bài đăng cộng đồng</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="h3row">Bốn giai đoạn</div>
+  <div class="phases" id="phases"></div>
+
+  <div class="h3row">Hệ thống kiểm tra</div>
+  <div class="panel">
+    <p class="sub" style="margin-bottom:.5rem">Test ngay sau khi đọc chỉ đo trí nhớ ngắn hạn. Điểm thật nằm ở bài kiểm sau 5–7 ngày.</p>
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Phần</th><th>Nội dung</th><th>Điểm</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Điền từ trong ngữ cảnh truyện</td><td class="mono">20</td></tr>
+          <tr><td>B</td><td>Chuyển ngữ cảnh sang công việc, đời sống</td><td class="mono">30</td></tr>
+          <tr><td>C</td><td>Phân biệt từ gần nghĩa</td><td class="mono">15</td></tr>
+          <tr><td>D</td><td>Tự viết câu</td><td class="mono">20</td></tr>
+          <tr><td>E</td><td>Chấm bài tóm tắt</td><td class="mono">15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Test nguội <b>50–70 điểm là bình thường</b>. Quên 40% từ mới trong tuần đầu không phải thất bại — đó là lý do phải đọc khối lượng lớn.</div>
+  </div>
+
+  <div class="h3row">Bốn nhãn phân loại từ</div>
+  <div class="panel">
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Nhãn</th><th>Nghĩa</th><th>Làm gì với Anki</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--jade)">MASTERED</td><td>Dùng đúng ở ngữ cảnh mới</td><td>Xóa khỏi deck</td></tr>
+          <tr><td style="color:var(--gold)">PASSIVE</td><td>Hiểu khi đọc, chưa tự dùng được</td><td>Đổi sang thẻ production</td></tr>
+          <tr><td style="color:var(--cinnabar-soft)">NOT LEARNED</td><td>Sai hoặc không nhớ</td><td>Viết lại thẻ với câu khác</td></tr>
+          <tr><td style="color:var(--paper-faint)">SKIP</td><td>Từ quá hiếm</td><td>Xóa</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="h3row">Ba bẫy hay gặp nhất</div>
+  <div class="panel">
+    <div class="rules-body" style="padding:0">
+      <div class="rule"><h4>Tra hết mọi từ</h4><p>Giết động lực nhanh nhất. Chấp nhận không hiểu 5–10%; từ quan trọng sẽ tự quay lại.</p></div>
+      <div class="rule"><h4>Nhồi Anki quá tay</h4><p>Thêm 30 thẻ mỗi ngày thì tháng thứ hai bạn có 400 thẻ tồn đọng rồi bỏ hẳn app.</p></div>
+      <div class="rule"><h4>Chỉ đọc, không viết</h4><p>Sẽ hiểu mọi thứ nhưng lên Reddit không gõ nổi một comment. Bắt đầu viết từ tháng thứ 4.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <script>
-    const bookChapters = [64, 53, 66, 80, 63, 52, 83, 102, 102, 91, 98, 70, 104, 70, 115, 101];
+"use strict";
 
-    function buildData() {
-        let globalCounter = 1;
-        return bookChapters.map((count, index) => {
-            const startGlobal = globalCounter;
-            const chapters = [];
-            for (let i = 1; i <= count; i++) {
-                chapters.push({
-                    local: i,
-                    global: globalCounter++
-                });
-            }
-            const endGlobal = globalCounter - 1;
-            return {
-                volume: index + 1,
-                count: count,
-                startGlobal: startGlobal,
-                endGlobal: endGlobal,
-                chapters: chapters
-            };
-        });
+/* ═══════ dữ liệu ═══════ */
+const BOOK_CHAPTERS=[64,53,66,80,63,52,83,102,102,91,98,70,104,70,115,101];
+
+const CATS={
+  realm:"Cảnh giới", stage:"Phân bậc", will:"Ý chí", body:"Cơ thể",
+  pill:"Đan dược", soul:"Hồn", undying:"Trường Sinh", artifact:"Pháp bảo",
+  sect:"Tông môn", title:"Xưng hô", geo:"Địa lý", rank:"Quân hàm",
+  beast:"Sinh vật", idiom:"Thành ngữ", vocab:"Dòng B ⭐"
+};
+
+// [tiếng Việt, tiếng Anh, nhóm, đã-xác-nhận(1/0), ghi chú]
+const G=[
+["Ngưng Khí","Qi Condensation","realm",1,"Chia 10 tầng, dùng số thứ tự chứ không dùng early/mid/late"],
+["Trúc Cơ","Foundation Establishment","realm",1],
+["Kim Đan","Gold Core","realm",1,"Truyện dùng lẫn lộn cả hai tên, kể cả trong cùng một chương"],
+["Kim Đan (tên gọi khác)","Core Formation","realm",1],
+["Nguyên Anh","Nascent Soul","realm",1],
+["Thiên Nhân","Deva","realm",1,"Deva là từ Sanskrit nghĩa thiên nhân — đây là dịch chuẩn, không phải dịch thoáng"],
+["Bán Thần","Demigod","realm",1],
+["Đại Thừa","Mahayana","realm",1,"Tên cảnh giới. Người ở cảnh giới này gọi là Celestial"],
+["Thiên Tôn","Celestial","realm",1],
+["Đại Thừa (tên gọi khác)","Great Ascension","realm",1],
+["Thái Cổ","Archaean","realm",1],
+["Chúa Tể","Sovereign","realm",1],
+["Vĩnh Hằng","Eternal","realm",1],
+["Phàm Đạo Trúc Cơ","Foundation Establishment via the Mortal-Dao","realm",1],
+["Địa Đạo Trúc Cơ","Earthstring Foundation","realm",1],
+["Thiên Đạo Trúc Cơ","Heavenstring Foundation","realm",1],
+["Thiên Đạo Nguyên Anh","Heaven-Dao Nascent Soul","realm",1],
+["Nhân phẩm Thiên Nhân","Mortal Grade Deva","realm",1],
+["Địa phẩm Thiên Nhân","Earth Grade Deva","realm",1],
+["Thiên phẩm Thiên Nhân","Heaven Grade Deva","realm",1],
+
+["tu vi","cultivation base","stage",1,"Chỉ mức độ tu luyện. Khác với realm là tên các bậc"],
+["cảnh giới","realm, stage","stage",1],
+["sơ kỳ","early","stage",1,"early Nascent Soul — viết thường trong truyện"],
+["trung kỳ","mid","stage",1],
+["hậu kỳ","late","stage",1],
+["đại viên mãn","the great circle of","stage",1,"Đổi cấu trúc: dùng giới từ of thay vì tính từ đứng trước"],
+["chuẩn (tiền tố)","quasi-","stage",1,"Gắn thẳng vào tên cảnh giới, luôn có gạch nối"],
+["bán bộ nhập","half a step into","stage",1,"Cụm giới từ, đứng sau danh từ"],
+["chuẩn Kim Đan","quasi-Core","stage",1,"Rút gọn còn Core, không phải quasi-Core Formation"],
+["chuẩn Nguyên Anh","quasi-Nascent Soul","stage",1],
+["chuẩn Thiên Tôn","Quasi-Celestial","stage",1],
+["tầng (Ngưng Khí)","level","stage",1,"the eighth level of Qi Condensation"],
+
+["niệm","will","will",1],
+["niệm lực","willpower","will",1],
+["niệm căn","Willroot","will",1],
+["đạo chủng","Daoseed","will",1],
+["đạo niệm","Dao Will","will",1],
+["mượn sức trời","borrow the power of the Heavens","will",1,"Cách của deva"],
+["áp chế ý trời","dominate the will of the Heavens","will",1,"Cách của demigod"],
+
+["kinh mạch","qi passageways","body",1,"Deathblade dùng từ này, không dùng meridians như đa số bản dịch khác"],
+["linh hải","spiritual sea","body",1],
+["thần thức","divine sense","body",1],
+["linh khí","spiritual energy","body",1],
+["nguyên anh (thực thể)","nascent soul","body",1,"Viết thường khi chỉ thực thể, viết hoa khi chỉ cảnh giới"],
+["thọ nguyên","longevity","body",1],
+["hồn","soul","body",1],
+["đan điền","dantian region","body",0],
+["khí huyết","qi and blood","body",0],
+["nhục thân","fleshly body","body",0],
+["linh căn","spiritual root","body",0],
+
+["Đan Đạo","Dao of Medicine","pill",1],
+["luyện đan","concoct","pill",1,"Động từ chuyên dụng. Không dùng make hay create"],
+["đan dược","medicinal pill","pill",1],
+["linh thảo, dược liệu","medicinal plant","pill",1],
+["ngũ sắc hỏa","Multi-Colored Flames","pill",1],
+["Trúc Cơ Đan","Foundation Establishment Pill","pill",1],
+["Nguyên Anh Đan","Nascent Soul Pill","pill",1],
+["Tụ Hồn Đan","Soul Convergence Pill","pill",1],
+["xuân dược","Aphrodisiac Pill","pill",1],
+["Huyễn Cảnh Đan","Fantasy Pill","pill",1],
+["Quy Oa","Turtle-Wok","pill",1],
+["đan lô","pill furnace, cauldron","pill",0],
+["đan sư","apothecary","pill",0],
+["đan phương","pill formula","pill",0],
+["dược lực","medicinal power","pill",0],
+["hỏa hầu","flame control","pill",0],
+
+["tu hồn giả","soul cultivator","soul",1],
+["tà tu hồn","necromancer","soul",1],
+["oán hồn","vengeful soul","soul",1],
+["Thiên Nhân hồn","deva soul","soul",1],
+["hợp nhất hồn","soul merger","soul",1],
+["hình thần câu diệt","dead in body and soul","soul",1,"Diệt cả xác lẫn hồn, không còn đường luân hồi"],
+
+["Trường Sinh Bất Tử Công","Undying Live Forever Technique","undying",1],
+["Trường Sinh Bì","Undying Skin","undying",1],
+["Trường Sinh Cân","Undying Tendons","undying",1],
+["Trường Sinh Cốt","Undying Bones","undying",1],
+["Trường Sinh Huyết","Undying Blood","undying",1],
+["Trường Sinh Thiên Vương","Undying Heavenly King","undying",1],
+["Trường Sinh Đế","Undying Emperor","undying",1],
+["Bất Tử Chú","Undying Hex","undying",1],
+
+["đạo thuật","Daoist magic","artifact",1],
+["kết ấn","incantation gesture","artifact",1,"Gặp hàng trăm lần trong truyện"],
+["Tử Khí Hoành Không Quyết","Violet Qi Heavenspan Incantation","artifact",1],
+["Hoành Không Pháp Nhãn","Heavenspan Dharma Eye","artifact",1],
+["pháp bảo","magical treasure","artifact",0],
+["công pháp","cultivation technique, arts","artifact",0],
+["thần thông","divine ability","artifact",0],
+["trận pháp","spell formation","artifact",0],
+["phù lục","magical symbol","artifact",0],
+["cấm chế","restrictive spell","artifact",0],
+["phi kiếm","flying sword","artifact",0],
+["trữ vật đại","bag of holding","artifact",0],
+
+["tông môn","sect","sect",1],
+["Linh Khê Tông","Spirit Stream Sect","sect",1],
+["tứ đại tông môn","Four Great Sects","sect",1],
+["thánh địa","Holy Land","sect",1],
+["bí cảnh","pocket realm","sect",1],
+["tông chủ","Sect Leader","sect",1],
+["trưởng lão","Elder","sect",1],
+["đại trưởng lão","Great Elder","sect",1],
+["tổ sư","Patriarch","sect",1],
+["chưởng tòa","Master","sect",1],
+["thần vệ","Divine Guards","sect",1],
+["ngoại môn đệ tử","outer sect disciple","sect",0],
+["nội môn đệ tử","inner sect disciple","sect",0],
+["chân truyền đệ tử","true disciple","sect",0],
+
+["sư huynh","Elder Brother","title",1,"Bộ này dùng Elder Brother, không phải Senior Brother như nhiều bản dịch khác"],
+["sư tỷ","Elder Sister","title",0],
+["sư đệ","Junior Brother","title",0],
+["sư muội","Junior Sister","title",0],
+["đạo hữu","Fellow Daoist","title",0],
+["tiền bối","senior","title",0],
+["hậu bối","junior","title",0],
+
+["Hoành Không Hà","Heavenspan River","geo",1,"Từ lõi lớn nhất truyện, ghép ra hàng loạt tên khác"],
+["Hoành Không Giới","Heavenspan World","geo",1],
+["Hoành Không Đảo","Heavenspan Island","geo",1],
+["Hạ Du","Lower Reaches","geo",1,"reach nghĩa là khúc sông, không phải với tới"],
+["Trung Du","Middle Reaches","geo",1],
+["Thượng Du","Upper Reaches","geo",1],
+["Hoang Vực","Wildlands","geo",1],
+["Hoang tộc","Wildlanders","geo",1],
+["Đại Thành","the Great Wall","geo",1],
+["Vĩnh Hằng Tiên Vực","Eternal Immortal Domains","geo",1],
+["Vĩnh Hằng Đại Lục","Eternal Continent","geo",1],
+["Vĩnh Hằng Chi Địa","Eternal Lands","geo",1],
+["Vĩnh Hằng Mẫu","Eternal Mother","geo",1],
+["tam tử vĩnh hằng","the three sons of eternity","geo",1],
+["Cổ Đế","Arch-Emperor","geo",1],
+["Tà Đế","Vile-Emperor","geo",1],
+["Thánh Đế","Saint-Emperor","geo",1],
+["triều đại","Dynasty","geo",1],
+["Lạc Kiếm Uyên","Fallen Sword Abyss","geo",1],
+["Đạo Chủng Sơn","Mount Daoseed","geo",1],
+
+["đại tá","colonel","rank",1],
+["thiếu tướng","major general","rank",1],
+["sĩ quan","army officer","rank",1],
+
+["tu sĩ","cultivator","beast",1],
+["Thiên Nhân thú","deva beast","beast",1],
+["man tộc, cự nhân","savage giants","beast",1],
+["Địa Mạch Hung Thú","Earth Meridian Fiend Beasts","beast",1],
+["phàm nhân","mortal","beast",0],
+["yêu thú","demonic beast","beast",0],
+
+["đột phá","break through to","idiom",1],
+["độ kiếp","Heavenly Tribulation","idiom",1],
+["nghịch thiên","heaven-defying","idiom",1],
+["vô sỉ","shameless","idiom",1,"Sẽ gặp vài trăm lần. Bạch Tiểu Thuần mà"],
+["cá chép vượt vũ môn","a fish who leapt over the dragon gate","idiom",1],
+["mười hơi thở","ten breaths of time","idiom",1],
+["phất tay áo","flick one's sleeve","idiom",1],
+["bế quan","secluded meditation","idiom",0],
+["thiên tài","prodigy, genius","idiom",0],
+["đại năng","expert","idiom",0],
+
+["lao tới","lunge","vocab",1,"he lunged for the door"],
+["xô, đẩy mạnh","shove","vocab",1],
+["phẩy, búng","flick","vocab",1,"flick a switch"],
+["ném mạnh","hurl","vocab",1,"hurl an exception"],
+["loạng choạng","stagger","vocab",1,"the server staggered under load"],
+["lê bước","trudge","vocab",1,"trudge through paperwork"],
+["sải bước","stride","vocab",1,"stride into the meeting"],
+["siết chặt","clench","vocab",1],
+["rùng mình","shudder","vocab",1],
+["dâng trào","surge","vocab",1,"traffic surged after the launch"],
+["cười đắc ý, khinh khỉnh","smirk","vocab",1,"Dễ nhầm với grin và sneer"],
+["cười toe, thân thiện","grin","vocab",1],
+["cười khinh bỉ","sneer","vocab",1],
+["cau mày giận dữ","scowl","vocab",1],
+["trừng mắt","glare","vocab",1,"Dễ nhầm với glance và stare"],
+["nhăn mặt vì đau","wince","vocab",1],
+["giật mình né","flinch","vocab",1],
+["lẩm bẩm bực bội","mutter","vocab",1,"Dễ nhầm với murmur và mumble"],
+["thì thầm nhẹ","murmur","vocab",1],
+["há hốc mồm","gape","vocab",1],
+["lạnh buốt","frigid","vocab",1],
+["hung tợn, ác liệt","vicious","vocab",1],
+["vô biên","boundless","vocab",1],
+["cực nhỏ","miniscule","vocab",1],
+["làm phát bực","exasperating","vocab",1,"Chính là từ mô tả Bạch Tiểu Thuần trong phần giới thiệu truyện"],
+["đáng mến","endearing","vocab",1],
+["hoàn toàn","utterly","vocab",1],
+["thầm trong lòng","inwardly","vocab",1],
+["chênh lệch","disparity","vocab",1,"disparity in latency between regions"],
+["hiểu thấu","fathom","vocab",1,"I can't fathom why this query is slow"],
+["đẩy tới","propel","vocab",1,"propel the project forward"],
+["tựa như, gần như","quasi-","vocab",1,"quasi-real-time, quasi-static"],
+["có chủ quyền","sovereign","vocab",1,"data sovereignty"],
+["chững lại","plateau","vocab",1,"performance plateaued after the third node"],
+["ngưỡng","threshold","vocab",1,"error threshold"],
+["sự gắn kết","cohesion","vocab",1,"module cohesion"],
+["hạn chế","restrictive","vocab",1,"restrictive permissions"]
+];
+
+const RULES=[
+["Cảnh giới viết hoa, phân bậc viết thường","<code>Nascent Soul</code> là tên cảnh giới. <code>early Nascent Soul</code> là phân bậc — truyện viết thường."],
+["Phân bậc dùng early / mid / late + stage","<code>in the early Nascent Soul stage</code>. Bỏ chữ Realm khi đã có early/mid/late: viết <code>early Deva</code>, không viết early Deva Realm."],
+["Đại viên mãn đổi sang cấu trúc of","<code>the great circle of the Nascent Soul stage</code>. Ba bậc đầu là tính từ đứng trước, bậc thứ tư là cụm danh từ có giới từ."],
+["Bán bộ có hai dạng","<code>quasi-X</code> là tính từ có gạch nối. <code>half a step into X</code> là cụm giới từ đứng sau. Đừng trộn hai cấu trúc."],
+["Ngưng Khí dùng số thứ tự","<code>the eighth level of Qi Condensation</code>. Đây là cảnh giới duy nhất phá luật vì nó chia mười tầng."],
+["Đan dược theo mẫu [tác dụng] + Pill","<code>Foundation Establishment Pill</code>, <code>Nascent Soul Pill</code>. Tên đan chính là cảnh giới nó đưa bạn tới, nên đoán được không cần tra."],
+["Địa danh ghép quanh một từ lõi","<code>Heavenspan</code> sinh ra River, World, Island, Realm, Dharma Eye. Gặp từ lõi lạ, hãy chờ nó tái xuất trong nhiều tổ hợp."],
+["Hệ Trường Sinh ghép với bộ phận cơ thể","<code>Undying Skin</code>, <code>Undying Tendons</code>, <code>Undying Bones</code>. Toàn bộ hệ tu luyện Hoang Vực theo mẫu này."]
+];
+
+const PHASES=[
+["Xây nền","Tháng 1–3 · chương 1–120","Một chương đọc kỹ, hai chương lướt. Từ điển Anh–Việt, Word Wise bật.",
+ ["Nếu 40 chương đầu quá nặng: đọc bản tiếng Việt trước rồi đọc bản tiếng Anh ngay sau. Bỏ nạng này sau chương 40.","Mốc cuối kỳ: khoảng 1200–1500 lượt tra từ, tốc độ 1 chương / 15 phút."]],
+["Đảo tỷ lệ và bắt đầu viết","Tháng 4–9 · chương 120–500","Một chương kỹ, bốn đến năm chương lướt. Tắt Word Wise, chuyển hẳn sang từ điển Anh–Anh.",
+ ["Mỗi tuần viết một bài cho cộng đồng: Reddit, Discord, hoặc Novel Updates.","Ràng buộc: mỗi bài phải dùng ít nhất 3 từ Dòng B học trong tuần. Dùng cultivation không tính."]],
+["Tăng tốc và kiểm chứng","Tháng 10–16 · chương 500–950","Sáu đến tám chương mỗi ngày. Chỉ giữ hai buổi đọc kỹ mỗi tuần.",
+ ["Song song đọc một bộ chưa từng đọc bản tiếng Việt — đây mới là phép thử thật.","Gợi ý: I Shall Seal the Heavens, cùng tác giả và cùng dịch giả nên chuyển tiếp mượt nhất."]],
+["Thoát khỏi cái kén","Tháng 17–24 · chương 950–1314","Truyện lùi về vai trò giải trí. Cắt 20 phút mỗi ngày cho tiếng Anh ngoài thể loại.",
+ ["Văn phong web novel lặp và đơn giản hóa — đọc mãi một nguồn sẽ khiến vốn từ rộng nhưng lệch.","Chuyển sang tài liệu .NET, blog kỹ thuật, r/dotnet. Đây là cầu nối về lại công việc."]]
+];
+
+/* ═══════ tiện ích ═══════ */
+const $=s=>document.querySelector(s);
+const norm=s=>s.toLowerCase()
+  .replace(/đ/g,"d").replace(/Đ/g,"d")
+  .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function highlight(text,q){
+  if(!q) return esc(text);
+  const n=norm(text), nq=norm(q), i=n.indexOf(nq);
+  if(i<0) return esc(text);
+  return esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+q.length))+"</mark>"+esc(text.slice(i+q.length));
+}
+
+/* ═══════ điều hướng ═══════ */
+const tabs=[...document.querySelectorAll(".nav button")];
+tabs.forEach(t=>t.addEventListener("click",()=>{
+  tabs.forEach(x=>x.setAttribute("aria-selected",String(x===t)));
+  ["map","glo","road"].forEach(p=>$("#page-"+p).hidden=(p!==t.dataset.page));
+  window.scrollTo({top:0,behavior:"instant"});
+  if(t.dataset.page==="glo") setTimeout(()=>$("#gloSearch").focus({preventScroll:true}),60);
+}));
+
+/* ═══════ trang 1 · quy đổi ═══════ */
+const VOLS=(()=>{let g=1;return BOOK_CHAPTERS.map((n,i)=>{const s=g;g+=n;return{v:i+1,n,start:s,end:g-1};});})();
+const TOTAL=VOLS[VOLS.length-1].end;
+
+const toLocal=g=>{const v=VOLS.find(x=>g>=x.start&&g<=x.end);return v?{vol:v.v,local:g-v.start+1}:null;};
+const toGlobal=(v,l)=>{const x=VOLS[v-1];return(x&&l>=1&&l<=x.n)?x.start+l-1:null;};
+
+const quickIn=$("#quickIn"),quickOut=$("#quickOut");
+let filter=null;    // null | {kind:"vol"|"pair"|"num", …, hits:Set}
+let activeG=null;   // chương gốc đang được chỉ tới
+
+/* Một ô nhập, ba cú pháp:
+     700          → số bất kỳ, trả về cả hai cách hiểu
+     9.22 / q9 22 → cặp quyển-chương, trả về đáp án duy nhất
+     quyển 9 / q9 → thông tin một quyển                        */
+function parseQuery(raw){
+  const s=norm(raw.trim()).replace(/\s+/g," ");
+  if(!s)return null;
+
+  let m=s.match(/^(?:quyen |q)?(\d+)\s*(?:[.\-\/,:]|chuong |ch |c| )\s*(\d+)$/);
+  if(m){
+    const vol=+m[1],local=+m[2],x=VOLS[vol-1];
+    if(!x)return{kind:"bad",msg:`Chỉ có 16 quyển.`};
+    if(local>x.n)return{kind:"bad",msg:`Quyển ${vol} chỉ có ${x.n} chương.`};
+    const g=x.start+local-1;
+    return{kind:"pair",vol,local,g,hits:new Set([g])};
+  }
+
+  m=s.match(/^(?:quyen|q)\s*(\d+)$/);
+  if(m){
+    const vol=+m[1];
+    return VOLS[vol-1]?{kind:"vol",vol,hits:new Set()}:{kind:"bad",msg:"Chỉ có 16 quyển."};
+  }
+
+  if(/^\d+$/.test(s)){
+    const n=parseInt(s,10);
+    if(n<1)return{kind:"bad",msg:"Số chương bắt đầu từ 1."};
+    const asGlobal=n<=TOTAL?toLocal(n):null;
+    const asLocal=VOLS.filter(v=>n<=v.n).map(v=>({vol:v.v,g:v.start+n-1}));
+    const hits=new Set();
+    if(asGlobal)hits.add(n);
+    asLocal.forEach(x=>hits.add(x.g));
+    if(!hits.size)return{kind:"bad",msg:`Bản tiếng Anh chỉ có ${TOTAL} chương.`};
+    return{kind:"num",n,asGlobal,asLocal,hits};
+  }
+
+  return{kind:"bad",msg:"Nhập một số chương, cặp “9.22”, hoặc “quyển 9”."};
+}
+
+function renderQuick(){
+  filter=parseQuery(quickIn.value);
+  activeG=null;
+
+  if(!filter){quickOut.innerHTML="";renderVols();return;}
+
+  if(filter.kind==="bad"){
+    quickOut.innerHTML=`<div class="interp"><div class="ival none">${filter.msg}</div></div>`;
+    filter=null;renderVols();return;
+  }
+
+  if(filter.kind==="vol"){
+    const v=VOLS[filter.vol-1];
+    quickOut.innerHTML=`<div class="interp">
+      <div class="ilabel">Quyển ${v.v}</div>
+      <div class="ival"><strong>${v.n}</strong> chương · bản tiếng Anh <strong>${v.start}</strong>–<strong>${v.end}</strong></div>
+    </div>`;
+    renderVols();return;
+  }
+
+  if(filter.kind==="pair"){
+    const{vol,local,g}=filter;activeG=g;
+    quickOut.innerHTML=`<div class="interp">
+      <div class="ilabel">Quyển ${vol}, chương ${local}</div>
+      <div class="ival">bản tiếng Anh là <strong>chapter ${g}</strong></div>
+    </div>`;
+    renderVols();return;
+  }
+
+  const{n,asGlobal,asLocal}=filter;
+  const a=asGlobal
+    ? `<div class="ival">chapter <strong>${n}</strong> → Quyển <strong>${asGlobal.vol}</strong>, chương <strong>${asGlobal.local}</strong></div>`
+    : `<div class="ival none">Bản tiếng Anh chỉ có ${TOTAL} chương.</div>`;
+  const b=asLocal.length
+    ? `<div class="pills">${asLocal.map(x=>
+        `<button class="pill" data-q="${x.vol}.${n}">Q${x.vol} → <b>${x.g}</b></button>`).join("")}</div>`
+    : `<div class="ival none">Không quyển nào có tới ${n} chương.</div>`;
+
+  quickOut.innerHTML=`
+    <div class="interp">
+      <div class="ilabel">Nếu ${n} là số chương bản tiếng Anh</div>${a}
+    </div>
+    <div class="interp">
+      <div class="ilabel">Nếu ${n} là chương thứ ${n} trong một quyển</div>${b}
+    </div>`;
+  renderVols();
+}
+
+function runQuery(q,scrollToVol){
+  quickIn.value=q;renderQuick();
+  if(scrollToVol&&filter&&filter.vol)openVol(filter.vol,true);
+}
+
+quickIn.addEventListener("input",renderQuick);
+quickOut.addEventListener("click",e=>{
+  const p=e.target.closest(".pill");if(!p)return;
+  runQuery(p.dataset.q,true);
+});
+document.querySelector(".examples").addEventListener("click",e=>{
+  const b=e.target.closest(".ex");if(!b)return;
+  runQuery(b.dataset.q,false);quickIn.focus();
+});
+
+/* ─── danh sách quyển ─── */
+const volList=$("#volList");
+
+function chapterCell(g,local,hit){
+  return `<div class="ch${hit?" hit":""}" data-g="${g}"><span>Ch. ${local}</span><b>${g}</b></div>`;
+}
+
+function renderVols(){
+  let list=VOLS,hits=null,onlyHits=false,autoOpen=false;
+
+  if(filter&&filter.kind==="vol"){
+    list=[VOLS[filter.vol-1]];autoOpen=true;
+  }else if(filter&&filter.kind==="num"&&filter.hits.size){
+    hits=filter.hits;onlyHits=true;autoOpen=true;
+    list=VOLS.filter(v=>[...hits].some(g=>g>=v.start&&g<=v.end));
+  }
+
+  if(!list.length){
+    volList.innerHTML=`<div class="empty-state">
+      <p>Không có quyển nào khớp.</p>
+      <button class="linkbtn" id="resetMap">Xóa ô tìm kiếm</button></div>`;
+    $("#resetMap").onclick=()=>{quickIn.value="";renderQuick();quickIn.focus();};
+    return;
+  }
+
+  volList.innerHTML=list.map(v=>{
+    const cells=[];
+    for(let i=0;i<v.n;i++){
+      const g=v.start+i,hit=hits?hits.has(g):false;
+      if(onlyHits&&!hit)continue;
+      cells.push(chapterCell(g,i+1,hit));
     }
+    return `<div class="vol${autoOpen?" open":""}" id="vol-${v.v}">
+      <button class="vol-head" aria-expanded="${autoOpen}">
+        <span class="vol-n">Quyển ${v.v}</span>
+        <span class="tag">${v.n} chương</span>
+        <span class="vol-range">${v.start}–${v.end}</span>
+        <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="vol-body"><div class="chgrid">${cells.join("")}</div></div>
+    </div>`;
+  }).join("");
+}
 
-    const data = buildData();
+volList.addEventListener("click",e=>{
+  const h=e.target.closest(".vol-head");if(!h)return;
+  const card=h.parentElement,open=card.classList.toggle("open");
+  h.setAttribute("aria-expanded",String(open));
+});
 
-    function renderUI(dataToRender) {
-        const container = document.getElementById('volumeContainer');
-        container.innerHTML = '';
+function openVol(v,scroll){
+  const card=$("#vol-"+v);if(!card)return;
+  card.classList.add("open");
+  card.querySelector(".vol-head").setAttribute("aria-expanded","true");
+  if(activeG){
+    const t=card.querySelector(`.ch[data-g="${activeG}"]`);if(t)t.classList.add("hit");
+  }
+  if(scroll)card.scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-        dataToRender.forEach((vol) => {
-            const card = document.createElement('div');
-            card.className = 'volume-card';
-            card.id = `vol-${vol.volume}`;
+renderVols();
 
-            card.innerHTML = `
-                <div class="volume-header" onclick="toggleCard(this)">
-                    <div class="volume-title-group">
-                        <span class="volume-title">Quyển ${vol.volume}</span>
-                        <span class="volume-badge">${vol.count} chương</span>
-                    </div>
-                    <div class="volume-range">
-                        Gốc: <strong>${vol.startGlobal}</strong> &rarr; <strong>${vol.endGlobal}</strong>
-                    </div>
-                    <svg class="toggle-icon" viewBox="0 0 24 24">
-                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
-                    </svg>
-                </div>
-                <div class="volume-content">
-                    <div class="chapter-grid">
-                        ${vol.chapters.map(ch => `
-                            <div class="chapter-item">
-                                <span class="local">Ch. ${ch.local}</span>
-                                <span class="global">(${ch.global})</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
+/* ═══════ trang 2 · từ điển ═══════ */
+$("#rulesBody").innerHTML=RULES.map((r,i)=>
+  `<div class="rule"><h4>${i+1}. ${r[0]}</h4><p>${r[1]}</p></div>`).join("");
 
-    function toggleCard(headerEl) {
-        const card = headerEl.parentElement;
-        card.classList.toggle('open');
-    }
+const IDX=G.map(e=>({vi:e[0],en:e[1],cat:e[2],ok:e[3],note:e[4]||"",
+  key:norm(e[0]+" "+e[1]+" "+(e[4]||""))}));
 
-    function toggleAll(open) {
-        const cards = document.querySelectorAll('.volume-card');
-        cards.forEach(card => {
-            if (open) {
-                card.classList.add('open');
-            } else {
-                card.classList.remove('open');
-            }
-        });
-    }
+const chips=$("#chips"),gloList=$("#gloList"),gloCount=$("#gloCount"),gloSearch=$("#gloSearch");
+let activeCat="all";
 
-    // Xử lý tìm kiếm
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const query = e.target.value.trim().toLowerCase();
-        
-        if (!query) {
-            renderUI(data);
-            return;
-        }
+chips.innerHTML=`<button class="chip" data-c="all" aria-pressed="true">Tất cả</button>`+
+  Object.entries(CATS).map(([k,v])=>
+    `<button class="chip" data-c="${k}" aria-pressed="false">${v}</button>`).join("");
 
-        const filtered = data.map(vol => {
-            const matchVolName = `quyển ${vol.volume}`.includes(query) || `quyen ${vol.volume}`.includes(query);
-            
-            const matchedChapters = vol.chapters.filter(ch => {
-                const searchNum = parseInt(query);
-                if (!isNaN(searchNum)) {
-                    return ch.local === searchNum || ch.global === searchNum;
-                }
-                return `chương ${ch.local}`.includes(query) || `chương ${ch.global}`.includes(query);
-            });
+chips.addEventListener("click",e=>{
+  const b=e.target.closest(".chip");if(!b)return;
+  activeCat=b.dataset.c;
+  chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));
+  renderGlo();
+});
+gloSearch.addEventListener("input",renderGlo);
 
-            if (matchVolName || matchedChapters.length > 0) {
-                return {
-                    ...vol,
-                    chapters: matchedChapters.length > 0 ? matchedChapters : vol.chapters
-                };
-            }
-            return null;
-        }).filter(Boolean);
+function renderGlo(){
+  const q=gloSearch.value.trim(), nq=norm(q);
+  const rows=IDX.filter(e=>
+    (activeCat==="all"||e.cat===activeCat) && (!nq||e.key.includes(nq)));
 
-        renderUI(filtered);
-        
-        if (query) {
-            toggleAll(true);
-        }
-    });
+  gloCount.innerHTML=q||activeCat!=="all"
+    ? `<b>${rows.length}</b> mục` + (q?` khớp với “${esc(q)}”`:"") + ` · tổng ${IDX.length}`
+    : `<b>${IDX.length}</b> mục · ${Object.keys(CATS).length} nhóm`;
 
-    // Khởi chạy ban đầu
-    renderUI(data);
+  if(!rows.length){
+    gloList.innerHTML=`<div class="empty-state">
+      <p>Không có mục nào khớp.</p>
+      <button class="linkbtn" id="resetGlo">Xóa bộ lọc và tìm lại</button></div>`;
+    $("#resetGlo").onclick=()=>{
+      gloSearch.value="";activeCat="all";
+      chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.c==="all")));
+      renderGlo();gloSearch.focus();
+    };
+    return;
+  }
+
+  gloList.innerHTML=rows.map(e=>{
+    const cls=e.cat==="vocab"?"star":(e.ok?"ok":"");
+    const mark=e.ok
+      ? `<span class="mark ok">✓ đã xác nhận</span>`
+      : `<span class="mark approx">~ theo quy ước</span>`;
+    return `<div class="entry ${cls}">
+      <div class="entry-top">
+        <span class="en">${highlight(e.en,q)}</span>
+        <span class="vi">${highlight(e.vi,q)}</span>
+      </div>
+      <div class="entry-meta"><span class="mini">${CATS[e.cat]}</span>${mark}</div>
+      ${e.note?`<div class="note">${highlight(e.note,q)}</div>`:""}
+    </div>`;
+  }).join("");
+}
+renderGlo();
+
+/* ═══════ trang 3 · lộ trình ═══════ */
+$("#phases").innerHTML=PHASES.map(p=>`
+<div class="phase">
+  <div class="when">${p[1]}</div>
+  <h4>${p[0]}</h4>
+  <p>${p[2]}</p>
+  <ul>${p[3].map(x=>`<li>${x}</li>`).join("")}</ul>
+</div>`).join("");
 </script>
-
 </body>
 </html>
